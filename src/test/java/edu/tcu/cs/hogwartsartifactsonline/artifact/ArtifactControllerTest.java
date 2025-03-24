@@ -66,7 +66,7 @@ class ArtifactControllerTest {
 
         Artifact a3 = new Artifact();
         a3.setName("artifact3");
-        a3.setId("7890");
+        a3.setId("67890");
         a3.setDescription("artifact3 description");
         a3.setImgUrl("artifact3 imgUrl");
         this.artifacts.add(a3);
@@ -80,14 +80,14 @@ class ArtifactControllerTest {
 
         Artifact a5 = new Artifact();
         a5.setName("artifact5");
-        a5.setId("7890");
+        a5.setId("37890");
         a5.setDescription("artifact5 description");
         a5.setImgUrl("artifact5 imgUrl");
         this.artifacts.add(a5);
 
         Artifact a6 = new Artifact();
         a6.setName("artifact6");
-        a6.setId("7890");
+        a6.setId("17890");
         a6.setDescription("artifact6 description");
         a6.setImgUrl("artifact6 imgUrl");
         this.artifacts.add(a6);
@@ -222,10 +222,10 @@ class ArtifactControllerTest {
     @Test
     void testDeleteArtifactErrorWithNonExistentId() throws Exception {
         // Given
-        doThrow(new ArtifactNotFoundException("123456789")).when(this.artifactService).delete("123456789");
+        doThrow(new ArtifactNotFoundException("1234")).when(this.artifactService).delete("1234");
 
         // When and then
-        this.mockMvc.perform(delete("/api/v1/artifacts/123456789").accept(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(delete("/api/v1/artifacts/1234").accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.flag").value(false))
                 .andExpect(jsonPath("$.code").value(StatusCode.NOT_FOUND))
                 .andExpect(jsonPath("$.message").value("Could not delete"))
