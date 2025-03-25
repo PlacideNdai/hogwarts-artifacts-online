@@ -14,15 +14,13 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/wizards")
 public class WizardController {
 
-    private final WizardRepository wizardRepository;
     private final WizardService wizardService;
     private final WizardDtoToWizardConverter wizardDtoToWizardConverter;
     private final WizardToWizardDtoConverter wizardToWizardDtoConverter;
 
 
 
-    public WizardController(WizardRepository wizardRepository, WizardService wizardService, WizardDtoToWizardConverter wizardDtoToWizardConverter, WizardToWizardDtoConverter wizardToWizardDtoConverter) {
-        this.wizardRepository = wizardRepository;
+    public WizardController(WizardService wizardService, WizardDtoToWizardConverter wizardDtoToWizardConverter, WizardToWizardDtoConverter wizardToWizardDtoConverter) {
         this.wizardService = wizardService;
         this.wizardDtoToWizardConverter = wizardDtoToWizardConverter;
         this.wizardToWizardDtoConverter = wizardToWizardDtoConverter;
@@ -30,7 +28,7 @@ public class WizardController {
 
     @GetMapping
     public Result findAllWizards() {
-        List<Wizard> foundWizards = wizardRepository.findAll();
+        List<Wizard> foundWizards = wizardService.findAllWizards();
 
         List<WizardDto> wizardDtos = foundWizards.stream()
                 .map(this.wizardToWizardDtoConverter::convert)

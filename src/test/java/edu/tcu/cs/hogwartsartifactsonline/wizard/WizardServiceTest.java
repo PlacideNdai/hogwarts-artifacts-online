@@ -99,8 +99,8 @@ class WizardServiceTest {
 
         // Then
         assertThat(thrown)
-                .isInstanceOf(ObjectNotFoundException.class)
-                .hasMessage("Could not find wizard with Id 1 :(");
+                .isInstanceOf(WizardNotFoundException.class)
+                .hasMessage("Could not find wizard with Id 1");
         verify(this.wizardRepository, times(1)).findById(Mockito.any(Integer.class));
     }
 
@@ -183,7 +183,7 @@ class WizardServiceTest {
         given(this.wizardRepository.findById(1)).willReturn(Optional.empty());
 
         // When
-        assertThrows(ObjectNotFoundException.class, () -> {
+        assertThrows(WizardNotFoundException.class, () -> {
             this.wizardService.delete(1);
         });
 
