@@ -1,6 +1,6 @@
 package edu.tcu.cs.hogwartsartifactsonline.wizard;
 
-import org.hibernate.ObjectNotFoundException;
+import edu.tcu.cs.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -99,8 +99,8 @@ class WizardServiceTest {
 
         // Then
         assertThat(thrown)
-                .isInstanceOf(WizardNotFoundException.class)
-                .hasMessage("Could not find wizard with Id 1");
+                .isInstanceOf(edu.tcu.cs.hogwartsartifactsonline.system.exception.ObjectNotFoundException.class)
+                .hasMessage("Could not find Wizard with Id 1");
         verify(this.wizardRepository, times(1)).findById(Mockito.any(Integer.class));
     }
 
@@ -183,7 +183,7 @@ class WizardServiceTest {
         given(this.wizardRepository.findById(1)).willReturn(Optional.empty());
 
         // When
-        assertThrows(WizardNotFoundException.class, () -> {
+        assertThrows(edu.tcu.cs.hogwartsartifactsonline.system.exception.ObjectNotFoundException.class, () -> {
             this.wizardService.delete(1);
         });
 
