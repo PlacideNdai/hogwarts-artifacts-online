@@ -65,7 +65,4 @@ public class ArtifactController {
         this.artifactService.findById(artifactID);
         return new Result(true, StatusCode.OK, "Deleted one");
     }
-
-
-
 }

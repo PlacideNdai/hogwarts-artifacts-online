@@ -231,5 +231,38 @@ class WizardControllerTest {
                 .andExpect(jsonPath("$.data").isEmpty());
     }
 
+    @Test
+    void testAssignArtifacts() throws Exception {
+        doNothing().when(this.wizardService).assignArtifact(2,"53143");
+
+        this.mockMvc.perform(put(this.baseUrl + "/wizards/2/artifacts/53143").accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.flag").value(true))
+                .andExpect(jsonPath("$.code").value(StatusCode.OK))
+                .andExpect(jsonPath("$.message").value("Assigned artifact"))
+                .andExpect(jsonPath("$.data").isEmpty());
+    }
+
+    @Test
+    void testAssignArtifactNotFound() throws Exception {
+        doThrow(new edu.tcu.cs.hogwartsartifactsonline.system.exception.ObjectNotFoundException("Artifact", 2)).when(this.wizardService).assignArtifact(2,"53143");
+
+        this.mockMvc.perform(put(this.baseUrl + "/wizards/2/artifacts/53143").accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.flag").value(false))
+                .andExpect(jsonPath("$.code").value(StatusCode.NOT_FOUND))
+                .andExpect(jsonPath("$.message").value("Could not find Wizard with Id 2"))
+                .andExpect(jsonPath("$.data").isEmpty());
+    }
+
+    @Test
+    void testAssignWizardNotFound() throws Exception {
+        doThrow(new edu.tcu.cs.hogwartsartifactsonline.system.exception.ObjectNotFoundException("Artifact", "53143")).when(this.wizardService).assignArtifact(2,"53143");
+
+        this.mockMvc.perform(put(this.baseUrl + "/wizards/2/artifacts/53143").accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.flag").value(false))
+                .andExpect(jsonPath("$.code").value(StatusCode.NOT_FOUND))
+                .andExpect(jsonPath("$.message").value("Could not find Wizard with Id 2"))
+                .andExpect(jsonPath("$.data").isEmpty());
+    }
+
 
 }
