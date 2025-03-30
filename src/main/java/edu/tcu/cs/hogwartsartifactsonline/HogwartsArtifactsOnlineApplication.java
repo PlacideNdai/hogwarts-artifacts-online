@@ -16,5 +16,5 @@ public class HogwartsArtifactsOnlineApplication {
     @Bean
     public IdWorker idWorker(){
         return new IdWorker(1, 1);
-    }
+    
 }
