@@ -113,7 +113,7 @@ class WizardControllerIntegrationTest {
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     void testAddWizardErrorWithInvalidInput() throws Exception {
         Wizard a = new Wizard();
-        a.setName(""); // Name is not provided.
+        a.setName("");
 
         String json = this.objectMapper.writeValueAsString(a);
 
@@ -169,8 +169,8 @@ class WizardControllerIntegrationTest {
     @DisplayName("Check updateWizard with invalid input (PUT)")
     void testUpdateWizardErrorWithInvalidInput() throws Exception {
         Wizard a = new Wizard();
-        a.setId(1); // Valid id
-        a.setName(""); // Updated name is empty.
+        a.setId(1);
+        a.setName("");
 
         String json = this.objectMapper.writeValueAsString(a);
 
